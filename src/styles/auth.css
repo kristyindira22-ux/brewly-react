@@ -1,0 +1,329 @@
+/* ===========================
+   LOGIN PAGE
+=========================== */
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(
+        to right,
+        var(--bg-left),
+        var(--bg-right)
+    );
+
+    padding: var(--space-6);
+
+
+}
+
+.login-card {
+    width: 100%;
+    max-width: 480px;
+
+    background-color: var(--card-bg);
+
+    border-radius: var(--radius-xl);
+
+    padding: var(--space-12);
+
+    color: var(--text-white);
+
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 800;
+    text-align: center;
+
+    margin-bottom: var(--space-8);
+}
+
+.login-card h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: var(--space-2);
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 0;
+}
+
+/* ==========================
+   LOGIN FORM
+========================== */
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 28px;
+}
+
+.login-form .form-group label {
+    display: block;
+    width: 100%;
+    text-align: left !important;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-white);
+    margin-bottom: 8px;
+}
+
+.login-form .form-options {
+    margin-top: -20px;
+}
+
+/* ==========================
+   CHECKBOX
+========================== */
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+
+    font-size: 0.875rem;
+    color: var(--text-light);
+
+    cursor: pointer;
+}
+
+.checkbox input {
+    width: 16px;
+    height: 16px;
+
+    accent-color: var(--primary);
+
+    cursor: pointer;
+}
+
+.forgot-password {
+    font-size: 0.875rem;
+    color: var(--primary);
+
+    text-decoration: none;
+
+    transition: opacity 0.2s ease;
+}
+
+.forgot-password:hover {
+    opacity: 0.8;
+}
+
+/* ==========================
+   LOGIN BUTTON
+========================== */
+
+.btn {
+    width: 100%;
+    padding: var(--space-4);
+
+    border: none;
+    border-radius: var(--radius-md);
+
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--text-white);
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+/* ==========================
+   DIVIDER
+========================== */
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+
+    margin: var(--space-2) 0;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background-color: var(--border);
+}
+
+.divider span {
+    color: var(--text-light);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.btn-google {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-3);
+
+    background-color: transparent;
+
+    border: 1px solid var(--border);
+
+    color: var(--text-white);
+}
+
+.btn-google:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.btn-google img {
+    width: 20px;
+    height: 20px;
+}
+
+/* ==========================
+   LOGIN FOOTER
+========================== */
+
+.login-footer {
+    margin-top: var(--space-6);
+
+    text-align: center;
+
+    color: var(--text-light);
+
+    font-size: 0.875rem;
+}
+
+.login-footer a {
+    color: var(--primary);
+
+    text-decoration: none;
+
+    font-weight: 600;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+/* ==========================
+   INPUT WRAPPER
+========================== */
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 52px;
+
+    padding:0 16px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    background: transparent;
+
+    transition: border-color 0.2s ease;
+}
+
+.input-wrapper input {
+    flex: 1;
+    height: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: var(--text-white);
+
+    font-size: 16px;
+
+    font-family: inherit;
+}
+
+.input-wrapper i {
+    font-size: 20px;
+    color: var(--text-placeholder);
+    flex-shrink: 0;
+}
+
+.toggle-password {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: none;
+    border: none;
+    padding: 0;
+
+    color: var(--text-placeholder);
+
+    cursor: pointer;
+}
+
+.toggle-password i {
+    font-size: 20px;
+}
+
+.input-wrapper:focus-within {
+    border-color: var(--primary);
+}
+
+.form-options {
+    margin-top: 4px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ==========================
+   REGISTER PAGE
+========================== */
+
+.register-card {
+    max-width: 520px;
+}
+
+.register-form {
+    gap: 20px;
+}
+
+.privacy-checkbox {
+    margin-top: 4px;
+}
+
+.privacy-checkbox span {
+    font-size: 14px;
+}
+
+.google-icon {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.register-form .privacy-checkbox {
+    margin-top: -16px;
+}
