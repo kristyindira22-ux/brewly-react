@@ -1,8 +1,119 @@
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom"; 
+import ProductCard from "../components/ProductCard";
+import ProductForm from "../components/ProductForm";
+import { Link } from "react-router-dom";
 
 function Home() {
+  const [products, setProducts] = useState([
+  {
+    id: 1,
+    name: "Gayo Aceh",
+    description: "Rich chocolate notes with a smooth finish.",
+    image: "/assets/images/biji kopi kedua.png",
+  },
+  {
+    id: 2,
+    name: "Premium Arabica",
+    description: "Smooth body with sweet caramel and fruity notes.",
+    image: "/assets/images/biji kopi pertama.png",
+  },
+  ]);
+  const [showForm, setShowForm] = useState(false);
+
+  const [editingProduct, setEditingProduct] = useState(null);
+
+  const [deletingProduct, setDeletingProduct] = useState(null);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    image: "",
+  });
+
+  const handleFormChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormData((previousData) => ({
+      ...previousData,
+      [name]: value,
+    }));
+  };
+
+  const handleAddProduct = (event) => {
+    event.preventDefault();
+
+    const newProduct = {
+      id: Date.now(),
+      name: formData.name,
+      description: formData.description,
+      image: formData.image,
+    };
+
+    setProducts((previousProducts) => [
+      ...previousProducts,
+      newProduct,
+    ]);
+
+    setFormData({
+      name: "",
+      description: "",
+      image: "",
+    });
+
+    setShowForm(false);
+  };
+
+  const handleEditProduct = (product) => {
+    setEditingProduct(product);
+
+    setFormData({
+      name: product.name,
+      description: product.description,
+      image: product.image,
+    });
+  };
+
+  const handleUpdateProduct = (event) => {
+    event.preventDefault();
+
+    setProducts((previousProducts) =>
+      previousProducts.map((product) =>
+        product.id === editingProduct.id
+          ? {
+              ...product,
+              name: formData.name,
+              description: formData.description,
+              image: formData.image,
+            }
+          : product
+      )
+    );
+
+    setEditingProduct(null);
+
+    setFormData({
+      name: "",
+      description: "",
+      image: "",
+    });
+  };
+
+  const handleDeleteProduct = (product) => {
+  setDeletingProduct(product);
+};
+
+  const confirmDeleteProduct = () => {
+    setProducts((previousProducts) =>
+      previousProducts.filter(
+        (product) => product.id !== deletingProduct.id
+      )
+    );
+
+    setDeletingProduct(null);
+  };
+
   return (
     <>
       <Navbar />
@@ -65,20 +176,69 @@ function Home() {
           </div>
         </section>
 
-        {/* Signature Bean */}
-        <section className="signature-section" id="signature">
-          <div className="signature-image">
-            <img
-              src="/assets/images/biji kopi kedua.png"
-              alt="Gayo Aceh coffee beans"
-            />
-          </div>
+        {/* Coffee Products */}
+<section className="products-section" id="products">
+  <div className="section-heading">
+    <h2>Our Coffee Beans</h2>
+    <p>
+      Explore our selection of premium coffee beans sourced from Indonesia.
+    </p>
+  </div>
 
-          <div className="signature-content">
-            <h2>Gayo Aceh</h2>
-            <p>Rich chocolate notes with a smooth finish.</p>
-          </div>
-        </section>
+  <button
+    className="add-product-button"
+    onClick={() => {
+      setEditingProduct(null);
+      setFormData({
+        name: "",
+        description: "",
+        image: "",
+      });
+      setShowForm(true);
+    }}
+  >
+    + Add Coffee
+  </button>
+
+  {showForm && (
+  <ProductForm
+    formData={formData}
+    onChange={handleFormChange}
+    onSubmit={handleAddProduct}
+    onCancel={() => {
+      setShowForm(false);
+      setFormData({
+        name: "",
+        description: "",
+        image: "",
+      });
+    }}
+  />
+)}
+
+  <div className="product-grid">
+    {products.map((product) => (
+      <ProductCard
+        key={product.id}
+        product={product}
+        editingProduct={editingProduct}
+        onEdit={handleEditProduct}
+        onDelete={handleDeleteProduct}
+        onSave={handleUpdateProduct}
+        onCancel={() => {
+          setEditingProduct(null);
+          setFormData({
+            name: "",
+            description: "",
+            image: "",
+          });
+        }}
+        formData={formData}
+        onChange={handleFormChange}
+      />
+    ))}
+  </div>
+</section>
 
         {/* Testimonials */}
         <section className="testimonials-section">
@@ -131,11 +291,45 @@ function Home() {
             Contact Us
           </Link>
         </section>
+        {deletingProduct && (
+  <div
+    className="delete-modal-overlay"
+    onClick={() => setDeletingProduct(null)}
+  >
+    <div
+      className="delete-modal"
+      onClick={(event) => event.stopPropagation()}
+    >
+      <h3>Delete Coffee?</h3>
+
+      <p>
+        Are you sure you want to delete{" "}
+        <strong>{deletingProduct.name}</strong>?
+      </p>
+
+      <div className="delete-modal-actions">
+        <button
+          type="button"
+          onClick={() => setDeletingProduct(null)}
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          onClick={confirmDeleteProduct}
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+)}
       </main>
 
       <Footer />
     </>
   );
-}
 
+}
 export default Home;
